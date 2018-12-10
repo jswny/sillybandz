@@ -11,10 +11,10 @@ user_id = "triple-jay"
 
 # TODO: Change the filename of the output file.
 # You should keep it in the format "speaker-data-<speaker>-#.csv"
-filename="trumpet.csv" #"speaker-data-HenryVIII-1.csv"
+filename="trombone.csv" # "speaker-data-HenryVIII-1.csv"
 
 # TODO: Change the label to match the speaker; it must be numeric
-label = 5
+label = 6
 
 # 6 clicks down volume
 
@@ -24,6 +24,7 @@ label = 5
 # mellophone = 3
 # tenor-sax = 4
 # trumpet = 5
+# trombone = 6
 
 data_dir = "data"
 
