@@ -2,9 +2,11 @@
 
 import numpy as np
 import math
+import numpy.fft as fft
 from scipy.signal import lfilter
 from audiolazy import lpc
 from python_speech_features import mfcc
+from scipy import fftpack
 
 class FeatureExtractor():
     def __init__(self, debug=True):
@@ -149,10 +151,31 @@ class FeatureExtractor():
         assert(d.shape[0] == 75)
         assert(d.shape[1] == 13)
 
-        # print(d.shape)
         d = d.flatten()
         
         return d # returns dummy value; replace this with the features you extract
+
+    def _compute_dominant_freqency(self, window):
+        N = len(window)//2
+        freq = fftpack.fftfreq(len(window))[:N]
+        fft = fftpack.fft(window)[:N]
+        amp = np.abs(fft)/N
+        order = np.argsort(amp)[::-1]
+        dominants = freq[order]
+        return dominants[:3]
+
+    def _compute_power(self, window):
+        return np.sum(window*window, 0)/window.size
+
+    def _compute_mean(self, window):
+        return np.mean(window)
+
+    def _compute_variance(self, window):
+        return np.var(window)
+
+    def _compute_rms(self, window):
+        rms = np.sqrt(np.sum(window**2, axis=0))
+        return rms
         
     def extract_features(self, window, debug=True):
         """
@@ -166,7 +189,10 @@ class FeatureExtractor():
         x = []
         
         x = np.append(x, self._compute_formant_features(window))
-        # print(x.shape)
         x = np.append(x, self._compute_delta_coefficients(window))
-        # print(x.shape)
+        x = np.append(x, self._compute_dominant_freqency(window))
+        # x = np.append(x, self._compute_power(window))
+        x = np.append(x, self._compute_mean(window))
+        x = np.append(x, self._compute_variance(window))
+        # x = np.append(x, self._compute_rms(window))
         return x    

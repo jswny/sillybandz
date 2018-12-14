@@ -55,7 +55,7 @@ print("Found data for {} speakers : {}".format(len(class_names), ", ".join(class
 
 # Update this depending on how you compute your features
 # n_features = 2040 
-n_features = 990
+n_features = 995
 
 print("Extracting features and labels for {} audio windows...".format(data.shape[0]))
 sys.stdout.flush()
@@ -78,12 +78,6 @@ for i,window_with_timestamp_and_label in enumerate(data):
 print("Finished feature extraction over {} windows".format(len(X)))
 print("Unique labels found: {}".format(set(y)))
 sys.stdout.flush()
-
-print(X)
-print(y)
-
-print(x.shape)
-print(y.shape)
 
 # %%---------------------------------------------------------------------------
 #
