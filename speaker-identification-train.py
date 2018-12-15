@@ -55,7 +55,7 @@ print("Found data for {} speakers : {}".format(len(class_names), ", ".join(class
 
 # Update this depending on how you compute your features
 # n_features = 2040 
-n_features = 995
+n_features = 996
 
 print("Extracting features and labels for {} audio windows...".format(data.shape[0]))
 sys.stdout.flush()

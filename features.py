@@ -164,9 +164,6 @@ class FeatureExtractor():
         dominants = freq[order]
         return dominants[:3]
 
-    def _compute_power(self, window):
-        return np.sum(window*window, 0)/window.size
-
     def _compute_mean(self, window):
         return np.mean(window)
 
@@ -191,8 +188,7 @@ class FeatureExtractor():
         x = np.append(x, self._compute_formant_features(window))
         x = np.append(x, self._compute_delta_coefficients(window))
         x = np.append(x, self._compute_dominant_freqency(window))
-        # x = np.append(x, self._compute_power(window))
         x = np.append(x, self._compute_mean(window))
         x = np.append(x, self._compute_variance(window))
-        # x = np.append(x, self._compute_rms(window))
+        x = np.append(x, self._compute_rms(window))
         return x    
