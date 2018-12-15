@@ -133,6 +133,7 @@ print("---------------------- Random Forest Classifier -------------------------
 total_accuracy = 0.0
 total_precision = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
 total_recall = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+total_conf = np.zeros((7, 7))
 for i, (train_indexes, test_indexes) in enumerate(cv):
    X_train = X[train_indexes, :]
    y_train = y[train_indexes]
@@ -149,6 +150,8 @@ for i, (train_indexes, test_indexes) in enumerate(cv):
 
    # show the comparison between the predicted and ground-truth labels
    conf = confusion_matrix(y_test, y_pred, labels=[0,1,2,3,4,5,6])
+   total_conf = total_conf + conf
+#    print(conf)
    
    accuracy = np.sum(np.diag(conf)) / float(np.sum(conf))
    precision = np.nan_to_num(np.diag(conf) / np.sum(conf, axis=1).astype(float))
@@ -161,6 +164,7 @@ for i, (train_indexes, test_indexes) in enumerate(cv):
 print("The average accuracy is {}".format(total_accuracy/10.0))  
 print("The average precision is {}".format(total_precision/10.0))    
 print("The average recall is {}".format(total_recall/10.0))  
+print("The final confusion matrix is {}".format(total_conf))  
 
 # TODO: (optional) train other classifiers and print the average metrics using 10-fold cross-validation
 
